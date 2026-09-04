@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+class Result {
+
+    public static int diagonalDifference(List<List<Integer>> arr) {
+
+        int n = arr.size();
+        int leftDiagonal = 0;
+        int rightDiagonal = 0;
+
+        for (int i = 0; i < n; i++) {
+            leftDiagonal += arr.get(i).get(i);
+            rightDiagonal += arr.get(i).get(n - 1 - i);
+        }
+
+        return Math.abs(leftDiagonal - rightDiagonal);
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(br.readLine());
+
+        List<List<Integer>> arr = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            String[] values = br.readLine().split(" ");
+            List<Integer> row = new ArrayList<>();
+
+            for (String value : values) {
+                row.add(Integer.parseInt(value));
+            }
+
+            arr.add(row);
+        }
+
+        int result = Result.diagonalDifference(arr);
+
+        System.out.println(result);
+    }
+}
