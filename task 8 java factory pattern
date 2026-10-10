@@ -1,0 +1,9 @@
+class FoodFactory {
+    public Food getFood(String order) {
+        if (order.equalsIgnoreCase("pizza")) {
+            return new Pizza();
+        } else {
+            return new Cake();
+        }
+    }
+}
