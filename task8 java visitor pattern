@@ -1,0 +1,55 @@
+class SumInLeavesVisitor extends TreeVis {
+    int sum = 0;
+
+    public int getResult() {
+        return sum;
+    }
+
+    public void visitNode(TreeNode node) {
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        sum += leaf.getValue();
+    }
+}
+
+class ProductOfRedNodesVisitor extends TreeVis {
+    long product = 1;
+
+    public int getResult() {
+        return (int) product;
+    }
+
+    public void visitNode(TreeNode node) {
+        if (node.getColor() == Color.RED) {
+            product = (product * node.getValue()) % 1000000007;
+        }
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        if (leaf.getColor() == Color.RED) {
+            product = (product * leaf.getValue()) % 1000000007;
+        }
+    }
+}
+
+class FancyVisitor extends TreeVis {
+    int evenDepthSum = 0;
+    int greenLeafSum = 0;
+
+    public int getResult() {
+        return Math.abs(evenDepthSum - greenLeafSum);
+    }
+
+    public void visitNode(TreeNode node) {
+        if (node.getDepth() % 2 == 0) {
+            evenDepthSum += node.getValue();
+        }
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        if (leaf.getColor() == Color.GREEN) {
+            greenLeafSum += leaf.getValue();
+        }
+    }
+}
