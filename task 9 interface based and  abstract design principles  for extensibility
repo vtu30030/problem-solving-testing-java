@@ -1,0 +1,60 @@
+
+import java.util.*;
+
+interface Payment {
+    void pay(double amount);
+}
+
+class CreditCardPayment implements Payment {
+    public void pay(double a) {}
+}
+
+class UPIPayment implements Payment {
+    public void pay(double a) {}
+}
+
+class NetBankingPayment implements Payment {
+    public void pay(double a) {}
+}
+
+abstract class PaymentProcessor {
+    abstract double processPayment(Payment p, double a);
+}
+
+class OnlinePaymentProcessor extends PaymentProcessor {
+    double processPayment(Payment p, double a) {
+        if (p instanceof CreditCardPayment) return a * 1.02;
+        if (p instanceof UPIPayment) return a * 1.01;
+        return a * 1.015;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        OnlinePaymentProcessor pp = new OnlinePaymentProcessor();
+
+        for (int i = 0; i < n; i++) {
+            int t = sc.nextInt();
+            double a = sc.nextDouble();
+            Payment p;
+            String s;
+
+            if (t == 1) {
+                p = new CreditCardPayment();
+                s = "CreditCard";
+            } else if (t == 2) {
+                p = new UPIPayment();
+                s = "UPI";
+            } else {
+                p = new NetBankingPayment();
+                s = "NetBanking";
+            }
+
+            System.out.printf("%s %.2f%n", s, pp.processPayment(p, a));
+        }
+        sc.close();
+    }
+}
+
